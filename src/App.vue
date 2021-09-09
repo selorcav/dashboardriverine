@@ -14,6 +14,8 @@ export default {
 };
 </script>
 <style lang="sass">
+
+
 .main-content
   .v-alert
     background-color: transparent !important

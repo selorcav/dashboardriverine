@@ -1,6 +1,6 @@
 <template>
-  <v-col cols="12" md="5" class="pa-0 pl-6">
-    <v-card v-for="item in puentes" :key="item.id">
+  <v-col class="pb-0">
+    <v-card elevation="0" max-width="500" v-for="item in puentes" :key="item.id">
       <v-carousel
         :continuous="false"
         :cycle="cycle"

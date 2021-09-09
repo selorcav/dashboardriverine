@@ -1,6 +1,6 @@
 <template>
-  <v-col class="pa-0 pl-2 pr-32" cols="12" md="7">
-    <v-card>
+  <v-col class="py-0">
+    <v-card elevation="0">
       <v-card-title class="blue--text">
         {{ titulo }}
       </v-card-title>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="z-999">
     <v-navigation-drawer
       class="overflow-inherit bg-drawer"
       color="blue"
@@ -7,14 +7,16 @@
       absolute
       permanent
       :mini-variant.sync="mini"
+      width="280"
     >
       <v-btn
         @click.stop="mini = !mini"
         rounded
         height="35"
         min-width="35"
-        class="toggle-btn pa-0"
+        class="pa-0 ms-3 mt-2"
         color="blue"
+        elevation="0"
       >
         <v-icon color="white">
           {{ mini ? "mdi-chevron-left" : "mdi-chevron-right" }}
@@ -38,56 +40,16 @@
 
       <v-divider></v-divider>
 
-      <v-list dense nav>
-        <v-dialog v-model="dialog" width="500">
-          <template v-slot:activator="{ on, attrs }">
-            <v-list-item
-              dark
-              v-bind="attrs"
-              v-on="on"
-              v-for="item in items"
-              :key="item.title"
-              link
-            >
-              <v-list-item-icon>
-                <v-icon color="white">{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title class="white--text">{{
-                  item.title
-                }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </template>
+      <add-bridge />
+      <add-client />
+      <add-sensor />
+      <add-river />
+      <bridge-list />
+      <bridge-list-2 />
 
-          <v-card>
-            <v-card-title class="text-h5">Agregar Puente </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-text-field label="Nombre" required></v-text-field>
-                <v-text-field label="Email" required></v-text-field>
-                <v-textarea
-                  outlined
-                  name="input-7-4"
-                  label="Descripción"
-                  value="Una descripción"
-                ></v-textarea>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="red darken-1" text @click="dialog = false">
-                    Cerrar
-                  </v-btn>
-                  <v-btn color="blue darken-1" text @click="save()">
-                    Guardar
-                  </v-btn>
-                </v-card-actions>
-              </v-container>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </v-list>
+
     </v-navigation-drawer>
-    <v-snackbar class="position-absolute" color="white"  v-model="snackbar">
+    <v-snackbar class="position-absolute" color="white" v-model="snackbar">
       <span class="blue--text">Puente agregado</span>
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" v-bind="attrs" @click="snackbar = false">
@@ -99,35 +61,42 @@
 </template>
 
 <script>
+import AddBridge from './NavMenu/AddBridge.vue';
+import AddClient from './NavMenu/AddClient.vue';
+import AddRiver from './NavMenu/AddRiver.vue';
+import AddSensor from './NavMenu/AddSensor.vue';
+import BridgeList from './NavMenu/BridgeList.vue';
+import BridgeList2 from './NavMenu/BridgeList2.vue';
 import User from "./User.vue";
 export default {
   components: {
     User,
+    AddBridge,
+    AddClient,
+    AddSensor,
+    AddRiver,
+    BridgeList,
+    BridgeList2,
   },
   data() {
     return {
       snackbar: false,
       mini: true,
       items: [
-        { title: "Agregar Empresa/Cliente", icon: "mdi-plus-circle" },
         { title: "Ver Puentes Registrados", icon: "mdi-format-list-checkbox" },
-        { title: "Agregar Sensor", icon: "mdi-leak" },
-        { title: "Agregar Puente", icon: "mdi-bridge" },
-        { title: "Agregar Río", icon: "mdi-waves" },
       ],
-      dialog: false,
+      
     };
   },
-  methods:{
-    save(){
-      this.dialog = false
-      this.snackbar = true
-    }
-  }
+  methods: {
+    save() {
+      this.snackbar = true;
+    },
+  },
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .overflow-inherit
   overflow: inherit
 .toggle-btn
@@ -139,5 +108,6 @@ export default {
   background-image: url('../assets/bg-drawer.jpg')
   background-size: cover
   background-repeat: no-repeat
-  z-index: 99
+  z-index: 5 !important
+
 </style>
