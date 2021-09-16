@@ -1,6 +1,6 @@
 <template>
   <v-col class="py-0 position-relative">
-    <v-dialog v-model="dialog" width="auto" content-class="ma-5">
+    <v-dialog v-model="dialog" width="auto" content-class="ma-5 dialog-chart">
       <template v-slot:activator="{ on, attrs }">
         <v-card elevation="0">
           <v-simple-table>
@@ -44,9 +44,9 @@
       </template>
 
       <v-card>
-        <v-row class="w-inherit ma-0 pa-6">
+        <v-row class="w-inherit card-chart ma-0 pa-6">
           <v-col class="pa-0" cols="12">
-            <v-sheet class="v-sheet--offset mx-auto" color="primary">
+            <v-sheet class="v-sheet--offset mx-auto charts" color="primary">
               <v-sparkline
                 :labels="labels"
                 :value="value"
@@ -62,10 +62,20 @@
             <v-divider class="my-1"></v-divider>
           </v-card-text>
           <v-col class="d-flex flex-column justify-center pa-0">
-            <v-btn color="primary" class="my-1 d-block">Horaria</v-btn>
-            <v-btn color="primary" class="my-1 d-block">Diaria</v-btn>
-            <v-btn color="primary" class="my-1 d-block">Mensual</v-btn>
-            <v-btn color="primary" class="my-1 d-block">Anual</v-btn>
+            <v-row>
+              <v-col cols="6">
+                <v-btn block color="primary" class="my-1">Horaria</v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn block color="primary" class="my-1">Diaria</v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn block color="primary" class="my-1">Mensual</v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-btn color="primary" block class="my-1">Anual</v-btn>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
       </v-card>
@@ -103,18 +113,51 @@ export default {
         },
       ],
       alert: false,
-      labels: ["12", "3", "6", "9", "12", "3", "6", "9"],
-      value: [200, 675, 410, 390, 310, 460, 250, 240],
+      labels: ["12", "3", "6", "9", "12", "3", "6"],
+      value: [200, 675, 410, 390, 310, 460, 250],
     };
   },
+  methods:{
+    dialogCenter(){
+      let dialog = document.getElementsByClassName("dialog-chart");
+      // dialog.style.justifyContent = "center"
+      console.log(dialog)
+    }
+  },
+  mounted() {
+    this.dialogCenter()
+  }
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass" >
+@import '../assets/css/mixin'
 .cursor-pointer
   cursor: pointer
 .position-relative
   position: relative
 .w-inherit
   width: inherit
+.dialog-chart
+  position: absolute
+  right: 180px
+  left: 180px
+  +for-tablet-landscape-only
+    right: 120px
+    left: 120px
+  +for-tablet-portrait-only
+    right: 100px
+    left: 100px
+  +for-ipad
+    position: initial
+.card-chart
+  +for-ipad
+    width: fit-content
+    background-color: white
+.charts
+  +for-ipad
+    height: 150px
+  svg
+    +for-ipad
+      height: 150px
 </style>

@@ -21,4 +21,6 @@ export default {
     background-color: transparent !important
   .v-alert__wrapper
     display: inherit
+
+
 </style>
